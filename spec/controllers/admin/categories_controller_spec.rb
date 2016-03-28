@@ -16,13 +16,22 @@ describe Admin::CategoriesController do
     assert_response :redirect, :action => 'index'
   end
 
-  describe "test_new" do
+  describe "GET 'new'" do
     it "is successful" do
       get :new
       expect(response.status).to eq 200
     end
   end
 
+  describe "POST 'edit'" do
+    context "good params" do
+      it "creates a new category" do
+        expect {
+          post :edit, {"category"=>{"name"=>"test"}}
+        }.to change(Category, :count).by(1)
+      end
+    end
+  end
 
   describe "test_edit" do
     before(:each) do
