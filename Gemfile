@@ -19,6 +19,8 @@ dbfile = File.expand_path("../config/database.yml", __FILE__)
 #  end
 #end
 
+gem 'pry-nav', group: [:development, :test]
+
 group :production do
   gem 'pg'
 end
