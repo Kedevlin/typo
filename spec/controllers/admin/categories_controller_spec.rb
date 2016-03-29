@@ -32,7 +32,7 @@ describe Admin::CategoriesController do
       end
     end
 
-    context "bad params" do
+    context "no name" do
       it "creates flash error" do
         post :edit, {"category"=>{"name"=>""}}
         expect(flash[:error]).to be_present
@@ -44,6 +44,24 @@ describe Admin::CategoriesController do
         }.to change(Category, :count).by(0)
       end
     end
+
+    context "category with name already exists" do
+      before(:each) do
+        Category.create!({:name => "test"})
+      end
+
+      it "creates flash error" do
+        post :edit, {"category"=>{"name"=>"test"}}
+        expect(flash[:error]).to be_present
+      end
+
+      it "does not create a new category" do
+        expect {
+          post :edit, {"category"=>{"name"=>"test"}}
+        }.to change(Category, :count).by(0)
+      end
+    end
+
   end
 
   describe "test_edit" do
