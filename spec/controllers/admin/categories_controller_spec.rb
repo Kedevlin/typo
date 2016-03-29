@@ -31,6 +31,14 @@ describe Admin::CategoriesController do
         }.to change(Category, :count).by(1)
       end
     end
+
+    context "bad params" do
+      it "redirects to admin categories" do
+        expect {
+          post :edit, {"category"=>{"name"=>""}}
+        }.to redirect_to admin_categories_path
+      end
+    end
   end
 
   describe "test_edit" do

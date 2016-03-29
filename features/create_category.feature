@@ -11,3 +11,8 @@ Feature: Create Categories
     Given I am on the admin dashboard page
     When I follow "Categories"
     Then I should see "Categories"
+
+  Scenario: Create New Category
+    Given I am on the admin categories page
+    When I press "Save"
+    Then I should see "Category could not be saved."

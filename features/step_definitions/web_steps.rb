@@ -55,6 +55,10 @@ And /^I am logged into the admin panel$/ do
   end
 end
 
+Given /^I haven't entered a name in the new form$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
