@@ -48,12 +48,11 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def save_category
-    if @category.save!
-      flash[:notice] = _('Category was successfully saved.')
-    else
+    if  @category.name.empty? || !@category.save!
       flash[:error] = _('Category could not be saved.')
+    else
+      flash[:notice] = _('Category was successfully saved.')
     end
     redirect_to :action => 'new'
   end
-
 end
