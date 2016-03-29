@@ -6,7 +6,7 @@
   <h3>Merge Articles</h3>
   <%= form_tag merge_articles_path do %>
     <p>
-      Article ID <%= number_field_tag 'article_id', nil, min: 1 %>
+      Article ID <%= number_field_tag 'merge_with', nil, min: 1 %>
     </p>
     <%= submit_tag(value = "Merge") %>
   <% end %>
