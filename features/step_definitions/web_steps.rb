@@ -55,8 +55,12 @@ And /^I am logged into the admin panel$/ do
   end
 end
 
-Given /^I haven't entered a name in the new form$/ do
-  pending # express the regexp above with the code you wish you had
+Given /^a category named "(.*?)" already exists$/ do |name|
+  Category.create!({:name => name})
+end
+
+When /^I enter "(.*?)" into the "(.*?)" input field$/ do |input, field|
+  fill_in(field, :with => input)
 end
 
 # Single-line step scoper
