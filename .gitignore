@@ -4,6 +4,7 @@ config/mail.yml
 db/*.sqlite*
 db/schema.rb
 db/db_test
+db/db_development
 .*.swp
 .*.swo
 .DS_Store
@@ -22,5 +23,4 @@ tmp/*
 nbproject
 public/cache/*
 .rbenv-version
-bin/
 .bundle/
