@@ -1,4 +1,3 @@
-require 'pry'
 class Admin::CategoriesController < Admin::BaseController
   cache_sweeper :blog_sweeper
 

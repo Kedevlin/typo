@@ -19,8 +19,6 @@ dbfile = File.expand_path("../config/database.yml", __FILE__)
 #  end
 #end
 
-gem 'pry-nav', group: [:development, :test]
-
 group :production do
   gem 'pg'
 end
@@ -59,4 +57,5 @@ group :development, :test do
   gem 'cucumber-rails-training-wheels'
   gem 'database_cleaner'
   gem 'capybara'
+  gem 'pry-nav'
 end
