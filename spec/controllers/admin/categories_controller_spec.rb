@@ -33,10 +33,15 @@ describe Admin::CategoriesController do
     end
 
     context "bad params" do
-      it "redirects to admin categories" do
+      it "creates flash error" do
+        post :edit, {"category"=>{"name"=>""}}
+        expect(flash[:error]).to be_present
+      end
+
+      it "does not create a new category" do
         expect {
           post :edit, {"category"=>{"name"=>""}}
-        }.to redirect_to admin_categories_path
+        }.to change(Category, :count).by(0)
       end
     end
   end
