@@ -57,11 +57,6 @@ describe Admin::CategoriesController do
         expect(flash[:error]).to be_present
       end
 
-      it "creates flash error for existing categories" do
-        post :edit, {"category"=>{"name"=>"test", "id" => category_2.id}}
-        expect(Category.last.name).to eq "second category"
-      end
-
       it "does not create a new category" do
         expect {
           post :edit, {"category"=>{"name"=>"test"}}
