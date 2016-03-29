@@ -50,9 +50,16 @@ describe Admin::CategoriesController do
         Category.create!({:name => "test"})
       end
 
-      it "creates flash error" do
+      let(:category_2) {Category.create!({:name => "second category"})}
+
+      it "creates flash error for new categories" do
         post :edit, {"category"=>{"name"=>"test"}}
         expect(flash[:error]).to be_present
+      end
+
+      it "creates flash error for existing categories" do
+        post :edit, {"category"=>{"name"=>"test", "id" => category_2.id}}
+        expect(Category.last.name).to eq "second category"
       end
 
       it "does not create a new category" do
