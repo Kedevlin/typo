@@ -22,3 +22,12 @@ Feature: Merge Articles
     And I am logged in as a non-admin user
     When I follow "Hello World!"
     Then I should not see "Merge Articles"
+
+  Scenario: Merge Two Articles as an Admin
+    Given I am on the admin content page
+    And I am logged into the admin panel
+    And a second article exists
+    When I follow "Hello World!"
+    And I enter "2" into the "merge_with" input field
+    And I press "Merge"
+    Then I should see "Articles have been merged!"

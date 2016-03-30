@@ -78,6 +78,10 @@ Given /^a category named "(.*?)" already exists$/ do |name|
   Category.create!({:name => name})
 end
 
+Given /^a second article exists$/ do
+  Article.create({:title => 'A big article', :body => 'A content with several data'})
+end
+
 When /^I enter "(.*?)" into the "(.*?)" input field$/ do |input, field|
   fill_in(field, :with => input)
 end
