@@ -3,6 +3,21 @@
 describe Admin::ContentController do
   render_views
 
+  describe "merge" do
+    it "should combine the second article's body with the first" do
+
+    end
+
+    it "should assign the the second article's comments to the first" do
+
+    end
+
+    it "should delete the second article" do
+
+    end
+
+  end
+
   # Like it's a shared, need call everywhere
   shared_examples_for 'index action' do
 
@@ -48,7 +63,7 @@ describe Admin::ContentController do
       response.should render_template('index')
       response.should be_success
     end
-    
+
     it 'should restrict to withdrawn articles' do
       article = Factory(:article, :state => 'withdrawn', :published_at => '2010-01-01')
       get :index, :search => {:state => 'withdrawn'}
@@ -56,7 +71,7 @@ describe Admin::ContentController do
       response.should render_template('index')
       response.should be_success
     end
-  
+
     it 'should restrict to withdrawn articles' do
       article = Factory(:article, :state => 'withdrawn', :published_at => '2010-01-01')
       get :index, :search => {:state => 'withdrawn'}

@@ -18,7 +18,7 @@ describe ArticlesController do
             :notify_on_new_articles => false,
             :notify_on_comments => false,
             :state => 'active')
-    Factory(:blog, :custom_tracking_field => '<script src="foo.js" type="text/javascript"></script>') 
+    Factory(:blog, :custom_tracking_field => '<script src="foo.js" type="text/javascript"></script>')
   end
 
 
@@ -57,12 +57,12 @@ describe ArticlesController do
     it 'should have a canonical url' do
       response.should have_selector('head>link[href="http://test.host/"]')
     end
-    
-    it 'should have googd title' do 
+
+    it 'should have googd title' do
       response.should have_selector('title', :content => "test blog | test subtitles")
     end
-    
-    it 'should have a custom tracking field' do      
+
+    it 'should have a custom tracking field' do
       response.should have_selector('head>script[src="foo.js"]')
     end
   end
@@ -100,7 +100,7 @@ describe ArticlesController do
       it 'should have a canonical url' do
         response.should have_selector('head>link[href="http://test.host/search/a"]')
       end
-      
+
       it 'should have a good title' do
         response.should have_selector('title', :content => "Results for a | test blog")
       end
@@ -111,7 +111,7 @@ describe ArticlesController do
         end
       end
 
-      it 'should have a custom tracking field' do      
+      it 'should have a custom tracking field' do
         response.should have_selector('head>script[src="foo.js"]')
       end
     end
@@ -121,7 +121,7 @@ describe ArticlesController do
       response.should be_success
       response.should render_template('index_rss_feed')
       @layouts.keys.compact.should be_empty
-      response.should_not have_selector('head>script[src="foo.js"]')    
+      response.should_not have_selector('head>script[src="foo.js"]')
     end
 
     it 'should render feed atom by search' do
@@ -129,7 +129,7 @@ describe ArticlesController do
       response.should be_success
       response.should render_template('index_atom_feed')
       @layouts.keys.compact.should be_empty
-      response.should_not have_selector('head>script[src="foo.js"]')      
+      response.should_not have_selector('head>script[src="foo.js"]')
     end
 
     it 'search with empty result' do
@@ -137,7 +137,7 @@ describe ArticlesController do
       response.should render_template('articles/error')
       assigns[:articles].should be_empty
     end
-    
+
   end
 
   describe '#livesearch action' do
@@ -207,12 +207,12 @@ describe ArticlesController do
     it 'should have a canonical url' do
       response.should have_selector('head>link[href="http://test.host/2004/4/"]')
     end
-    
+
     it 'should have a good title' do
       response.should have_selector('title', :content => "Archives for test blog")
     end
-    
-    it 'should have a custom tracking field' do      
+
+    it 'should have a custom tracking field' do
       response.should have_selector('head>script[src="foo.js"]')
     end
   end
@@ -294,7 +294,7 @@ end
 
 describe ArticlesController, "the index" do
   before(:each) do
-    Factory(:blog) 
+    Factory(:blog)
     Factory(:user, :login => 'henri', :profile => Factory(:profile_admin, :label => Profile::ADMIN))
   end
 
