@@ -95,7 +95,8 @@ class Article < Content
     merged.comments << first.comments
     merged.comments << second.comments
     merged.save
-
+    first.destroy
+    second.destroy
     return merged
   end
 
