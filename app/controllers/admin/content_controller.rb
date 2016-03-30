@@ -7,6 +7,11 @@ class Admin::ContentController < Admin::BaseController
   cache_sweeper :blog_sweeper
 
   def merge
+    unless current_user.admin?
+      redirect_to admin_content_path
+      flash[:error] = _("Error, you are not allowed to perform this action")
+      return
+    end
     first = Article.find(params[:id])
     merged = first.merge_with(params[:merge_with])
     if merged.nil?
