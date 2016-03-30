@@ -72,7 +72,7 @@ class Article < Content
   end
 
   def merge_with(other_article_id)
-    return "TBD"
+    return nil if (self.id == other_article_id) || Article.exists?(other_article_id)
   end
 
   def set_permalink
