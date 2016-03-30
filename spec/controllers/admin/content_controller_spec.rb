@@ -41,7 +41,7 @@ describe Admin::ContentController do
         request.session = { :user => @user_1.id }
         get 'merge', good_params
         response.should redirect_to admin_content_path
-        expect(flash[:error]).to be_present
+        expect(flash[:error]).to_not be_present
       end
     end
 
