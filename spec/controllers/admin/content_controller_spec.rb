@@ -18,6 +18,14 @@ describe Admin::ContentController do
       {"merge_with"=>"2", "id"=>"1"}
     }
 
+    let(:same_article_params){
+      {"merge_with"=>"1", "id"=>"1"}
+    }
+
+    let(:nonexistent_article_params) {
+      {"merge_with"=>"2", "id"=>"3"}
+    }
+
     it "should not allow non-admins to merge" do
       request.session = { :user => @user_2.id }
       get 'merge', good_params
@@ -39,11 +47,14 @@ describe Admin::ContentController do
     end
 
     context "bad params" do
-      it "should not allow merge of two articles when one does not exist"
+      it "should not allow merge of two articles when one does not exist" do
+        get :merge, same_article_params
+        expect(flash[:error]).to eq("Cannot merge an article with itself!")
       end
 
       it "should not allow merge of the same two articles" do
-
+        get :merge, nonexistent_article_params
+        expect(flash[:error]).to eq("Article with id of 3 does not exist!")
       end
     end
   end
