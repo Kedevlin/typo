@@ -9,21 +9,25 @@ describe Admin::ContentController do
       @user_1 = Factory(:user, :profile => Factory(:profile_admin, :label => Profile::ADMIN))
       @user_2 = Factory(:user, :profile => Factory(:profile_publisher))
 
-      a = Article.create({:title => 'Second Article Title', :body => 'Second Article Content', :user_id => @user_2.id})
-      a.comments.build(:body => "Second Article Comment", :author => 'bob', :published => true, :published_at => Time.now)
+      @a1 = Article.create({:title => 'First Article Title', :body => 'First Article Content', :user_id => @user_2.id})
+      @a1.comments.build(:body => "First Article Comment", :author => 'First Comment Author', :published => true, :published_at => Time.now)
+      @a1.save
 
+      @a2 = Article.create({:title => 'Second Article Title', :body => 'Second Article Content', :user_id => @user_1.id})
+      @a2.comments.build(:body => "Second Article Comment", :author => 'Second Comment Author', :published => true, :published_at => Time.now)
+      @a2.save
     end
 
     let(:good_params) {
-      {"merge_with"=>"2", "id"=>"1"}
+      {"merge_with"=>@a2.id, "id"=>@a1.id}
     }
 
     let(:same_article_params){
-      {"merge_with"=>"1", "id"=>"1"}
+      {"merge_with"=>@a1.id, "id"=>@a1.id}
     }
 
     let(:nonexistent_article_params) {
-      {"merge_with"=>"2", "id"=>"3"}
+      {"merge_with"=>@a2.id, "id"=>"3"}
     }
 
     it "should not allow non-admins to merge" do
@@ -33,16 +37,11 @@ describe Admin::ContentController do
     end
 
     context "good params" do
-      it "should redirect to admin content" do
+      it "should redirect to admin content without flash error" do
         request.session = { :user => @user_1.id }
         get 'merge', good_params
         response.should redirect_to admin_content_path
-      end
-
-      it "should reduce article count by 1" do
-        expect {
-          get :merge, good_params
-        }.to change(Article, :count).by(1)
+        expect(flash[:error]).to_not be_present
       end
     end
 

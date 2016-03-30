@@ -7,7 +7,8 @@ class Admin::ContentController < Admin::BaseController
   cache_sweeper :blog_sweeper
 
   def merge
-    #TBD
+    first = Article.find(params[:id])
+    first.merge_with(params[:merge_with])
     redirect_to admin_content_path
   end
 
