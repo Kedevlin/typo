@@ -53,7 +53,7 @@ describe Article do
     end
 
     it "creates a new article object and deletes the two original articles" do
-      expect(merged).to change(Article, :count).by(1)
+      expect{@a1.merge_with(@a1.id)}.to change(Article, :count).by(1)
     end
 
     it "creates a new article with the title" do
