@@ -72,7 +72,29 @@ class Article < Content
   end
 
   def merge_with(other_article_id)
-    return nil if (self.id == other_article_id) || Article.exists?(other_article_id)
+    return nil if (self.id == other_article_id) || !Article.exists?(other_article_id)
+    first = self
+    second = Article.find(other_article_id)
+    merged = Article.new
+    merged.title = first.title
+    merged.body = first.body + " " + second.body
+    merged.user_id = first.user_id
+    merged.author = first.author
+    merged.extended = first.extended ||= second.extended
+    merged.excerpt = first.excerpt ||= second.excerpt
+    merged.created_at = first.created_at
+    merged.text_filter_id = first.text_filter_id ||= second.text_filter_id
+    merged.whiteboard = first.whiteboard ||= second.whiteboard
+    merged.name = first.name ||= second.name
+    merged.published = first.published ||= second.published
+    merged.published_at = first.published_at ||= second.published_at
+    merged.allow_pings = first.allow_pings ||= second.allow_pings
+    merged.allow_comments = first.allow_comments ||= second.allow_comments
+    merged.parent_id = first.parent_id ||= second.parent_id
+    merged.post_type = first.post_type
+    merged.save
+
+    return merged
   end
 
   def set_permalink
