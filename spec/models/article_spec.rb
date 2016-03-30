@@ -27,15 +27,19 @@ describe Article do
   end
 
   describe "#merge_with(other_article_id)" do
+    it "should create a new article with the title and author of the first article" do
+
+    end
+
     it "should combine the second article's body with the first" do
 
     end
 
-    it "should assign the the second article's comments to the first" do
+    it "re-assign both articles' comments to the new article" do
 
     end
 
-    it "should delete the second article" do
+    it "should delete the two original articles" do
 
     end
   end
