@@ -8,7 +8,10 @@ class Admin::ContentController < Admin::BaseController
 
   def merge
     first = Article.find(params[:id])
-    first.merge_with(params[:merge_with])
+    merged = first.merge_with(params[:merge_with])
+    if merged.nil?
+      flash[:error] = _('Unable to perform merge.')
+    end
     redirect_to admin_content_path
   end
 
