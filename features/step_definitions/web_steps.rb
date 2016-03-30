@@ -79,11 +79,20 @@ Given /^a category named "(.*?)" already exists$/ do |name|
 end
 
 Given /^a second article exists$/ do
-  Article.create({:title => 'A big article', :body => 'A content with several data'})
+  a = Article.create({:title => 'Second Article Title', :body => 'Second Article Content', :user_id => 2})
+  a.comments.build(:body => "Second Article Comment", :author => 'bob', :published => true, :published_at => Time.now)
+end
+
+Given /^I have merged the initial article with the second article$/ do
+  Article.find(1).merge_with(2)
 end
 
 When /^I enter "(.*?)" into the "(.*?)" input field$/ do |input, field|
   fill_in(field, :with => input)
+end
+
+Then /^I should see "(.*?)" in the "(.*?)" field$/ do |text, id|
+  page.should have_selector(id, text: text)
 end
 
 # Single-line step scoper
