@@ -4,18 +4,13 @@ describe Admin::ContentController do
   render_views
 
   describe "merge" do
-    it "should combine the second article's body with the first" do
+    it "should not allow non-admins to merge" do
 
     end
 
-    it "should assign the the second article's comments to the first" do
+    it "should redirect to admin content" do
 
     end
-
-    it "should delete the second article" do
-
-    end
-
   end
 
   # Like it's a shared, need call everywhere
