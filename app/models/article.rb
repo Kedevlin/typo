@@ -92,6 +92,8 @@ class Article < Content
     merged.allow_comments = first.allow_comments ||= second.allow_comments
     merged.parent_id = first.parent_id ||= second.parent_id
     merged.post_type = first.post_type
+    merged.comments << first.comments
+    merged.comments << second.comments
     merged.save
 
     return merged

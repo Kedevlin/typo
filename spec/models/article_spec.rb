@@ -33,9 +33,11 @@ describe Article do
       # @user_2 = Factory(:user, :profile => Factory(:profile_publisher))
       @a1 = Article.create({:title => 'First Article Title', :body => 'First Article Content', :user_id => 1})
       @a1.comments.build(:body => "First Article Comment", :author => 'First Comment Author', :published => true, :published_at => Time.now)
+      @a1.save
 
-      @a2 = Article.create({:title => 'Second Article Title', :body => 'Second Article Content', :user_id => 2})
+      @a2 = Article.create({:title => 'Second Article Title', :body => 'Second Article Content', :user_id => 1})
       @a2.comments.build(:body => "Second Article Comment", :author => 'Second Comment Author', :published => true, :published_at => Time.now)
+      @a2.save
     end
 
     let(:merged) { @a1.merge_with(@a2.id) }
