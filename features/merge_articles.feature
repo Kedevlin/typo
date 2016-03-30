@@ -45,8 +45,7 @@ Feature: Merge Articles
     When I follow "Hello World!"
     And I enter "2" into the "merge_with" input field
     And I press "Merge"
-    Then I should see "Articles have been merged!"
-    And I should not see "Second Article Title"
+    Then I should not see "Second Article Title"
 
   Scenario: Merged Articles Contain Text of Both Articles and Title of the First
     Given I am on the admin content page
