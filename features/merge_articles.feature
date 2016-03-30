@@ -39,3 +39,11 @@ Feature: Merge Articles
     And I enter "2" into the "merge_with" input field
     And I press "Merge"
     Then I should see "Article with id of 2 does not exist!"
+
+  Scenario: Cannot Merge the same Two Articles
+    Given I am on the admin content page
+    And I am logged into the admin panel
+    When I follow "Hello World!"
+    And I enter "1" into the "merge_with" input field
+    And I press "Merge"
+    Then I should see "Cannot merge an article with itself!"
