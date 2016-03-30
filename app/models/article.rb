@@ -72,7 +72,7 @@ class Article < Content
   end
 
   def merge_with(other_article_id)
-    #TBD
+    return "TBD"
   end
 
   def set_permalink

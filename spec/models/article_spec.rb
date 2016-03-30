@@ -27,20 +27,41 @@ describe Article do
   end
 
   describe "#merge_with(other_article_id)" do
-    it "should create a new article with the title and author of the first article" do
+    before :each do
+      # Factory(:blog)
+      # @user_1 = Factory(:user, :profile => Factory(:profile_admin, :label => Profile::ADMIN))
+      # @user_2 = Factory(:user, :profile => Factory(:profile_publisher))
+      @a1 = Article.create({:title => 'First Article Title', :body => 'First Article Content', :user_id => 1})
+      @a1.comments.build(:body => "First Article Comment", :author => 'First Comment Author', :published => true, :published_at => Time.now)
 
+      @a2 = Article.create({:title => 'Second Article Title', :body => 'Second Article Content', :user_id => 2})
+      @a2.comments.build(:body => "Second Article Comment", :author => 'Second Comment Author', :published => true, :published_at => Time.now)
     end
 
-    it "should combine the second article's body with the first" do
+    let(:merged) { @a1.merge_with(@a2.id) }
 
+    it "returns an article object" do
+      expect(merged).to be_an_instance_of Article
     end
 
-    it "re-assign both articles' comments to the new article" do
-
+    it "creates a new article object and deletes the two original articles" do
+      expect(merged).to change(Article, :count).by(1)
     end
 
-    it "should delete the two original articles" do
+    it "creates a new article with the title" do
+      expect(merged.title).to eq "First Article Title"
+    end
 
+    it "creates a new article and assign it to the user of the first article" do
+      expect(merged.user_id).to eq @a1.id
+    end
+
+    it "combines the second article's body with the first" do
+      expect(merged.body).to eq "First Article Content Second Article Content"
+    end
+
+    it "re-assigns both articles' comments to the new article" do
+      expect(merged.comments.length).to eq 2
     end
   end
 
