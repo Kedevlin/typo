@@ -4,12 +4,47 @@ describe Admin::ContentController do
   render_views
 
   describe "merge" do
-    it "should not allow non-admins to merge" do
+    before :each do
+      Factory(:blog)
+      @user_1 = Factory(:user, :profile => Factory(:profile_admin, :label => Profile::ADMIN))
+      @user_2 = Factory(:user, :profile => Factory(:profile_publisher))
+
+      a = Article.create({:title => 'Second Article Title', :body => 'Second Article Content', :user_id => @user_2.id})
+      a.comments.build(:body => "Second Article Comment", :author => 'bob', :published => true, :published_at => Time.now)
 
     end
 
-    it "should redirect to admin content" do
+    let(:good_params) {
+      {"merge_with"=>"2", "id"=>"1"}
+    }
 
+    it "should not allow non-admins to merge" do
+      request.session = { :user => @user_2.id }
+      get 'merge', good_params
+      expect(flash[:error]).to eq("Error, you are not allowed to perform this action")
+    end
+
+    context "good params" do
+      it "should redirect to admin content" do
+        request.session = { :user => @user_1.id }
+        get 'merge', good_params
+        response.should redirect_to admin_content_path
+      end
+
+      it "should reduce article count by 1" do
+        expect {
+          get :merge, good_params
+        }.to change(Article, :count).by(1)
+      end
+    end
+
+    context "bad params" do
+      it "should not allow merge of two articles when one does not exist"
+      end
+
+      it "should not allow merge of the same two articles" do
+
+      end
     end
   end
 
