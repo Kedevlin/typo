@@ -40,6 +40,14 @@ describe Article do
 
     let(:merged) { @a1.merge_with(@a2.id) }
 
+    it "returns nil if the second article does not exist" do
+      expect(@a1.merge_with(3)).to eq nil
+    end
+
+    it "returns nil if the second article is the same as the first article" do
+      expect(@a1.merge_with(@a1.id)).to eq nil
+    end
+
     it "returns an article object" do
       expect(merged).to be_an_instance_of Article
     end
